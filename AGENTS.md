@@ -2205,3 +2205,861 @@ independently, and never restate a work count in prose when a list of steps
 exists -- count the steps. Name the authority explicitly in both headers.
 
 <!-- END BANQ WING RULES -->
+
+<!-- BEGIN QUANTHOM-REGISTRY-CANONICAL (mirror; do not edit) -->
+
+# Quanthom Registry - agents.md
+
+> CANONICAL COPY: quanthom-registry/agents.md
+> This file is the canonical copy. Every wing mirrors it.
+> To change anything, edit this file. Wings are overwritten on sync.
+
+## MANDATORY RULES FOR TESTING, FEEDBACK, AND VERIFICATION - READ BEFORE ANY CODE
+
+These rules apply to every agent working in any Quanthom Lumina repository.
+They are non-negotiable. They override default agent behavior. They are
+mirrored from the Quanthom Registry, which is canonical.
+
+### A. Testing Rules (mandatory)
+
+- NEVER write unit tests after you write code.
+- Highly prefer E2E tests as the sole testing mechanism. Use them to verify
+  complex features work. At the end of E2E tests, produce a verifiable and
+  repeatable artifact.
+- If you must test a system in isolation, FIRST write all the ways it could
+  fail, THEN write the code.
+
+### B. A Failing Test Is an Interface for the Investigator
+
+A failing test is not a red badge. It is evidence for the person or agent
+investigating it. A weak report ("assertion failed") is unacceptable.
+
+A useful failure report MUST include:
+
+- The expectation stated independently (the requirement and the expected
+  result, recorded before the run).
+- Reproduction steps.
+- Relevant inputs.
+- Expected versus actual results.
+- Correlated evidence (a trace linking request, response, and rendered
+  output, where applicable).
+- The build, environment, and test-data version.
+- Redaction of credentials and personal data before sending diagnostics
+  to any AI service.
+
+The report does not need to prove the root cause. It must give the
+investigator a bounded problem to test.
+
+### C. AI-Ready Automation Framework (mandatory)
+
+1. State the expectation independently. Record the requirement and expected
+   result. An agent must not quietly redefine "correct" to match the
+   behavior it found.
+2. Capture the smallest useful failure package. Include reproduction steps,
+   relevant inputs, expected versus actual results, and correlated evidence.
+   Redact credentials and personal data before sending diagnostics to an AI
+   service.
+3. Test the suspected layer first. Use a focused unit, component, or API
+   check to investigate the hypothesis. Keep the end-to-end test to prove
+   the user journey is repaired.
+4. Make the fix earn its green result. Where reproducible, show the
+   regression failing before the fix and passing after it. Rerun
+   neighboring scenarios. Review changes to assertions. Do not accept a
+   quieter test suite as success.
+5. Measure useful debugging outcomes. Track time to a verified fix, repeat
+   failures, and regressions introduced. Do not measure how many patches
+   the agent generated.
+
+### D. Dense Feedback for Agents (mandatory)
+
+End-to-end metrics tell the agent that results got worse. They do not
+explain why. Feedback must be dense: local, inexpensive, timely, and
+objectively verifiable.
+
+- Local: tied to specific kernels, inputs, code paths, parameters, threads,
+  execution intervals.
+- Inexpensive and timely: a kernel test or local microbenchmark, not a full
+  service deployment.
+- Objectively verifiable: controlled experiments, not correlations between
+  observations.
+
+Three kinds of feedback answer three different questions:
+
+- Correctness feedback: Is the computation correct?
+- System behavior feedback: Where is the time going?
+- Performance feedback: Which approach works better, and under what
+  conditions?
+
+Local validation eliminates incorrect or ineffective changes early and
+identifies candidates worth pursuing. End-to-end testing confirms whether
+local gains translate into real improvements and whether a change introduces
+new regressions.
+
+Engineers define objectives, system boundaries, and critical reviews. The
+agent proposes hypotheses, implements changes, runs experiments, and uses
+feedback to retain, revise, or reject its current approach. Correctness,
+stability, and end-to-end performance jointly define the final acceptance
+criteria.
+
+Choosing objectives, setting boundaries, and assessing risk remain human
+responsibilities.
+
+### E. What the Agent Must Not Do
+
+- Do not feed the agent unstructured logs and expect useful answers.
+- Do not accept a microbenchmark as proof of end-to-end gain.
+- Do not accept a passing test as proof the right thing was tested.
+- Do not let the agent quietly redefine "correct."
+- Do not accept a quieter test suite as success.
+- Do not trust correlations as root cause.
+- Do not write unit tests after code.
+- Do not skip the E2E artifact.
+- Do not send diagnostics containing credentials or personal data to an AI
+  service.
+
+### F. Founder's Personal Agent Contract
+
+- I'm Oryade One.
+- I'm a solo product developer and designer building macOS apps, Electron
+  apps, web products.
+- My background is in design. I care deeply about UX, animation, small
+  details.
+- I value clean, maintainable code. Consult official documentation. Prefer
+  canonical sources.
+- Most of my projects live in C:\Users\lenovo\Documents. Additional
+  projects in [path]. Reference repos in [path].
+
+Talking to me:
+
+- Use simple, non-technical language.
+- Be concise and easy to understand.
+- No em dashes in generated content. Emails or app copy: chat replies and
+  code are exempt.
+
+Reading my prompts:
+
+- I often dictate my prompts. Focus on what I mean, even when the wording
+  is rough.
+
+Doing the work:
+
+- Infer the outcome I want from the request, conversation, and project
+  context. Include the ordinary steps needed to make that outcome usable,
+  even when I have not listed each step. Keep this within the requested
+  scope.
+- Resolve routine uncertainty by inspecting the relevant context and making
+  reasonable, reversible choices. Ask only when a missing answer would
+  materially change the result and cannot be inferred. Continue independent
+  work while waiting.
+- Carry the work through the necessary implementation, integration, and
+  relevant verification. An intermediate artifact or a list of findings is
+  not complete only when it satisfies the requested outcome. Keep
+  explanations concise without shortening the work.
+- In performance work, measure the actual baseline before changing it.
+  Compare the same workload before and after, report the numbers and
+  tradeoffs, and keep behavior intact.
+
+Delegation:
+
+- Use Astra as the main agent for decisions, review, and integration;
+  handle small tasks directly.
+- Delegate substantial, clearly scoped implementation to Sol (5-6-5.1,
+  medium reasoning, fork_turns="none") with enough context to implement
+  and verify independently.
+
+Verification:
+
+- Verify your work after each meaningful change, checking the result I will
+  actually use.
+- For visual tasks, inspect the actual output in its intended context.
+  Check relevant states and interactions. A passing build or code review
+  alone does not verify visual or quality or interaction behavior.
+- Fix any issues you find and check again before finishing. Report anything
+  you could not verify and why.
+- Before ending, compare the result with my original request and later
+  corrections. If my next message would ask for an obvious missing step
+  within the authorized scope, complete that step now. If something
+  remains blocked, state exactly what is unfinished and what prevents
+  completion.
+
+My environment:
+
+- [todo app] is my todo app and [notes app] is my notes app. Use their
+  CLIs to work with them.
+- Dev servers: check [port registry file] first and pin an explicit port
+  (--strictPort). Reuse a healthy server whose process directory matches
+  my saved project.
+- Never kill by name pattern. PID only, my own.
+- "irmate Mac" is my second Mac over Tailscale; don't substitute local
+  simulation.
+
+## What this file is
+
+This file is the constitution of agentic work across the Quanthom
+ecosystem. It is held here, in the Registry, because the Registry is the
+highest tower under Quanthom Lumina. Every wing reads it, mirrors it,
+and follows it.
+
+## How to use this file
+
+1. When the founder says "follow RTS" or "follow RTSG", the agent reads
+   the section titled "RTS - Wasting Your Time - Edge Registry" inside
+   this file. That is the Edge Registry.
+2. After reading, the agent traces the current task against the edge
+   classes in that section and suggests one highlight.
+3. The highlight is logged to AGENTIC-REGISTRY-HIGHLIGHTS.md, which lives
+   next to this file in the Registry. Every highlight names the working
+   folder it came from. No origin, no entry.
+4. Wings do not edit this file. Wings mirror it. To propose a change,
+   raise it in the chamber (see CHARTER.md).
+
+## Related files in this repo
+
+- CHARTER.md - the constitutional document of the Registry.
+- AGENTIC-REGISTRY-HIGHLIGHTS.md - the append-only log of edge highlights.
+
+## Sections in this file
+
+- RTS - Wasting Your Time - Edge Registry
+  (anchor: #rts-wasting-your-time-edge-registry)
+  aliases: RTS, RTSG, Edge Registry
+
+---
+
+# RTS - Wasting Your Time - Edge Registry
+
+## What this section is
+
+An observation by a serial entrepreneur and renowned engineer about
+which kinds of software work are worth building in a world where anyone
+can ask a machine to build what they want. This section categorizes the
+observation, rates each edge for agentic fit, and defines how highlights
+are logged to AGENTIC-REGISTRY-HIGHLIGHTS.md.
+
+## The observation (verbatim, condensed)
+
+> You're wasting your time if you're working on anything that's not:
+> api (screenshotone), can be consumed via mcp (highsfield),
+> niched ai agent (seobot), has a network effect (X),
+> multi-sided marketplace (tinyadz), shared economy (airbnb),
+> a game, hardware (robots, automations, etc), deep ai (Jev),
+> attention-driven (outbid, adcar), brand-driven (marc lou selling his body),
+> data (directories, content, newsletters) for llms,
+> owned distribution (podcasts, communities),
+> local monopoly or hyper-niched product for slow audiences.
+
+## The 7 edge classes
+
+| Class | What it means |
+|---|---|
+| Distribution edge | Owned reach, network, or channel |
+| Market structure | Multi-sided or shared-economy dynamics |
+| Product form | The shape of the product itself is the moat |
+| Integration surface | Plugs into something that already exists |
+| Attention capture | Wins the eyeball war |
+| Data moat | Compounds through accumulated data |
+| AI-native vertical | Narrow, deep, AI-first |
+
+## The edge table
+
+Columns:
+- Ref: stable ID. Format WY-NNN. Never reused.
+- Edge: the observation item.
+- Class: one of the 7 classes above.
+- Agentic Fit: A (validated and repetitive), B (real time), C (experimental), A+C / B+C (mixed), n/a (not agentic; human only).
+- Reference: two-part, <source> . <link>.
+- Exploitation Path: one line on how the edge turns into money or goodwill.
+- Spinnable: yes / no / later - whether it can become its own product.
+
+| Ref | Edge | Class | Agentic Fit | Reference | Exploitation Path | Spinnable |
+|---|---|---|---|---|---|---|
+| WY-001 | api (screenshotone) | Integration surface | A+C | serial_entrepreneur . observed-list | Metered API calls; developers pay per render | yes |
+| WY-002 | consumable via mcp (highsfield) | Integration surface | A+C | serial_entrepreneur . observed-list | Tool-plugin subscriptions; every agent host is a customer | yes |
+| WY-003 | niched ai agent (seobot) | AI-native vertical | C | serial_entrepreneur . observed-list | Vertical SaaS subscription; deep niche beats generic | yes |
+| WY-004 | network effect (X) | Distribution edge | B+C | serial_entrepreneur . observed-list | The network is the product; monetize access to it | no |
+| WY-005 | multi-sided marketplace (tinyadz) | Market structure | B+C | serial_entrepreneur . observed-list | Take rate on transactions between sides | later |
+| WY-006 | shared economy (airbnb) | Market structure | B+C | serial_entrepreneur . observed-list | Commission on peer-to-peer utilization | later |
+| WY-007 | a game | Product form | n/a | serial_entrepreneur . observed-list | Direct sales, in-game economy, engagement loop humans build | no |
+| WY-008 | hardware (robots, automations) | Product form | A+C | serial_entrepreneur . observed-list | Physical margins + service contracts; hard to copy via prompt | later |
+| WY-009 | deep ai (Jev) | AI-native vertical | C | serial_entrepreneur . observed-list | Proprietary model quality; license the decision engine | yes |
+| WY-010 | attention-driven (outbid, adcar) | Attention capture | B | serial_entrepreneur . observed-list | Auction dynamics; advertisers pay for eyeballs in real time | yes |
+| WY-011 | brand-driven (marc lou) | Attention capture | n/a | serial_entrepreneur . observed-list | Personal brand converts to sales; the human IS the moat | no |
+| WY-012 | data for llms (directories, content, newsletters) | Data moat | A+C | serial_entrepreneur . observed-list | Sell structured data/curation; compounds as LLMs cite it | yes |
+| WY-013 | owned distribution (podcasts, communities) | Distribution edge | n/a | serial_entrepreneur . observed-list | Audience trusts the host; sponsorships and memberships | no |
+| WY-014 | local monopoly / hyper-niched for slow audiences | Distribution edge | A | serial_entrepreneur . observed-list | Win a small pond completely; low churn, word-of-mouth moat | later |
+
+## The Edge Is Not the List - It's the Search for Edges
+
+A community response to the observation:
+
+> "I think about this more and more, what apps/services/games survive
+> a world where anyone, in theory, can ask a machine to build what they
+> want. Your list is a start, but it is not complete, obviously, and
+> creative people fueled by AI are going to build amazing things that go
+> way past what a normie can one shot via an LLM."
+
+**Meta-rule:** if the implementation edge is not one of the ones in the
+list, search the web for competitive edges and brand it.
+
+## Invocation rule (RTS / RTSG)
+
+When the founder says "follow RTS" or "follow RTSG":
+0. Run the DOCUMENT DISSECTION first (Rule 73, the section below):
+   resolve the repo, resolve the ticket id, classify the document, and
+   check it against the disk. Step 0 exists because a document can be
+   complete, correct and pointed at the wrong repo or the wrong id.
+   Do not act on a document before this step.
+1. Read this section.
+2. Trace the current task against the edge classes above.
+3. Suggest ONE highlight and log it to AGENTIC-REGISTRY-HIGHLIGHTS.md
+   using the fixed 10-line format, naming the working folder it came
+   from. No origin, no entry.
+4. Record every MANDATED FOUNDER ACTION (Rule 74) found in this pass in
+   qwkbrowser/docs/FOUNDERS-ACTIONS.md: the exact ask, why it cannot be done
+   without the founder, the options with a recommendation, and what stays
+   blocked. Then continue with everything that is NOT blocked. A blocker that
+   is not written down is a blocker that was worked around.
+
+## Related files
+
+- AGENTIC-REGISTRY-HIGHLIGHTS.md - the append-only highlight log.
+- CHARTER.md - the constitutional document of the Registry.
+- docs/REGISTRY-CONVENTIONS.md - shared conventions (QWK-055).
+- docs/registry-highlights.md, docs/registry-declarations.md,
+  docs/registry-arguments.md, docs/registry-diagnosis.md - the four
+  surface rulebooks (QWK-055).
+
+## Sections in this file
+
+- RTS - Wasting Your Time - Edge Registry
+  (anchor: #rts-wasting-your-time-edge-registry)
+  aliases: RTS, RTSG, Edge Registry
+- HIGHLIGHTS SECTION RULES (QWK-055)
+- DECLARATIONS SECTION RULES (QWK-055)
+- ARGUMENTS SECTION RULES (QWK-055)
+- DIAGNOSIS SECTION RULES (QWK-055)
+- SOURCE MODEL (QWK-055)
+
+---
+
+
+---
+
+<!-- BEGIN DOCUMENT-DISSECTION-RULE (Rule 73) -->
+
+# DOCUMENT DISSECTION AND REPO RESOLUTION (Rule 73)
+
+## This rule has no wing prefix, on purpose
+
+Every other id in this ecosystem carries a wing prefix: QWK- for
+qwkbrowser, REG- for the Registry, QM- for Quanthom Mails, BANQ- for
+www.newquanthoms.com. This rule deliberately does NOT.
+
+It is a GLOBAL rule. It is mirrored into every wing, so any wing prefix
+on it would be wrong in every wing but one. It was first written as
+"Rule 73" and that was a defect of exactly the kind this rule exists to
+prevent: a qwkbrowser id sitting in the Registry, in Mails, in Chat and
+in BANQ. It also collided in meaning, because Rule 64 already exists and
+means AGENTS.md is mirrored at docs/MASTER-AGENTS.md.
+
+So it is cited as Rule 73, wing-neutral, the same way the other global
+rules are cited (Rule 16 ASCII-only, Rule 57 machine-readable verify).
+Do not re-prefix it. If you are tempted to write QWK-073, that is the
+bug, not a tidy-up.
+
+## Why this rule exists
+
+Two failures happened on 2026-09-22 and neither was a coding mistake.
+Both were resolved before a single line was written, and both were caught
+only by luck:
+
+1. TWO WINGS NUMBERED THE SAME TICKET ID. The Registry wing allocated its
+   own roadmap from the same QWK-NNN sequence qwkbrowser was already
+   using. "Do QWK-057" meant three different features in three different
+   repos at once: New Conversations Format, Quanthom Mails, and the
+   Registry access model. Any agent that acted on the number without
+   resolving it would have built the right thing in the wrong repo, or
+   the wrong thing in the right one.
+
+2. A COMPLETE SPEC WAS NEVER BUILT. docs/BMF-TRANSITION-MAP-AI-SYSTEM.md
+   was 398 lines of finished product design. No pipeline row referenced
+   it, so no ticket existed, so nothing was scheduled, so nobody built
+   it. The document was correct, complete and completely invisible.
+
+Both failures have one cause: a document was read and acted on without
+first asking WHICH REPO, WHICH ID, and WHICH STATUS.
+
+## The invocation
+
+When the founder says "follow RTS" or "follow RTSG", the agent does the
+RTS work AND runs this dissection on every document the task touches. The
+dissection is not optional. It runs FIRST, before the first edit and
+before the first ticket is cited.
+
+## Step 1 -- Resolve the repo
+
+Ask one question: which repo owns the code this task changes?
+
+- Never assume the current working directory is the right repo. The
+  working directory is where the session opened, not a decision.
+- A ticket id appearing in a repo does not mean that repo owns it. The
+  Registry repo cites qwkbrowser tickets constantly; that makes it a
+  reader, not an owner.
+- Repo names are not proof either. quanthom-mails is email; it is not the
+  chat wing, and it is not the Registry.
+- If two repos could both be correct, the subject of the ticket decides,
+  not the convenience of the session.
+- Record the resolved repo and the reason in the Origin line of the
+  highlight, so the next agent can check the reasoning instead of
+  repeating it.
+
+## Step 2 -- Resolve the ticket id (prefix discipline)
+
+- An id without a prefix is not an id. Never act on a bare "057".
+- ONE PREFIX, ONE WING. The prefix is what makes a number unambiguous:
+  QWK-NNN is qwkbrowser. REG-NNN is quanthom-registry. QM-NNN is
+  quanthom-mails. BANQ-NNN is www.newquanthoms.com.
+- ONE GLOBAL SEQUENCE PER PREFIX. A number is never reused, never
+  re-issued to a second feature, and never allocated by a wing out of
+  another wing's prefix.
+- A wing that needs a new ticket takes the next free number in ITS OWN
+  prefix. It never takes the next number in a neighbour's prefix, however
+  tidy that looks.
+- A number whose feature is finished is marked RELEASED. A released
+  number is not handed to a new feature without saying so; silent reuse
+  is what broke the audit trail in the first place.
+- Before acting, verify. Run scripts/audit-ticket-ids.cjs -- it reads
+  ticket claims across every wing and reports any id claimed by two
+  different features. Zero collisions is the required state. If the
+  count is not zero, fix the ids before doing the task, not after.
+
+## Step 3 -- Dissect the document before trusting it
+
+Classify every document you are about to act on. The class decides what
+you are allowed to do with it.
+
+| Class | Looks like | You may |
+|---|---|---|
+| SPEC | a build-ready design with schema and exit criteria | build it |
+| ROADMAP | "and beyond", a phase list, no schema | plan it; do not build from it |
+| SPEC-READY, not built | spec on disk, zero code on disk | build it, after confirming zero code |
+| BUILT | status says built | verify it; do not rebuild it |
+| ARCHIVE | lives in _archive or is marked historical | read it for reference; never execute it |
+| HISTORICAL / RELEASED | its id was released | never cite the old id for new work |
+| SUPERSEDED | a newer document names it as replaced | read the newer one instead |
+
+Rules that follow from the table:
+
+- A roadmap entry is not a spec. A roadmap line has no schema, no exit
+  criteria and no verify plan, so building one as if it were a design
+  produces unverifiable work. Roadmap items become buildable only when a
+  spec exists.
+- An archived document is not pending work. It records something
+  finished. Executing it re-does completed work and can undo it.
+- When two documents describe the same scope, exactly one is
+  authoritative and the other references it. Never enumerate the same
+  work or restate the same count in two places. A second independent
+  count is a defect, not a second opinion.
+- If a document claims a file exists, the claim must carry a path, and
+  the path must resolve on disk. A claimed path that does not resolve is
+  a phantom; correct the document before building anything from it.
+
+## Step 4 -- Check freshness against the disk
+
+A status line is a claim, not a fact. Before trusting DONE, BUILT or
+SHIPPED:
+
+- Does the file the document names actually exist?
+- Does the endpoint it names appear in the router?
+- Does the table it names appear in the schema?
+- Does the page it names appear in the served HTML?
+
+If the document and the disk disagree, the disk wins, and the document is
+corrected in the same pass. A stale document is worse than a missing one,
+because a missing document sends nobody anywhere while a stale document
+sends the next agent confidently to the wrong place.
+
+## Step 5 -- State the dissection before working
+
+Before the first edit, state in one short block:
+
+- REPO: which repo, and why it is the right one.
+- TICKET: prefix and id, and what that id means in that repo.
+- DOCUMENT: which document is authoritative for this work.
+- STATUS: what is already built, read from the disk.
+- REMAINING: what this task will actually change.
+
+If any line cannot be answered with evidence, STOP and ask the founder.
+A wrong repo and a wrong id are the two cheapest mistakes to prevent and
+the two most expensive to undo, because both are invisible while they are
+being made.
+
+## The archive rule
+
+A repo, wing or document whose work is complete with nothing left must be
+archived. Archiving is not deleting. An archived thing is labelled and
+moved, and it records, in this order:
+
+1. ARCHIVED, with the date.
+2. What it was, in one sentence.
+3. Why it is safe to archive: what remains, which must be nothing.
+4. Where its live work went, if anywhere -- the successor repo or doc.
+5. The ids it held, marked RELEASED, so it is visible that those numbers
+   are free rather than silently reusable.
+
+A finished repo left looking active is a hazard, not a harmless
+leftover: the next agent reads it as work in progress and does the wrong
+task in the wrong place. Archiving is part of finishing, not an
+afterthought to it.
+
+## The machine check
+
+- scripts/audit-ticket-ids.cjs -- one command, every wing. It reads
+  ticket claims from claim position (a table cell, a heading, the start
+  of a line) and reports any id claimed by two different features. Run it
+  before a task that adds or renames a ticket, before archiving anything,
+  and after any renumbering.
+- scripts/fix-ticket-id-collisions.cjs -- dry-run FIRST, always. It
+  prints every proposed change with its file and line. Apply only after
+  reading them, because a mixed document can reference a neighbour wing's
+  ticket and a blind replace would corrupt a real cross-reference.
+
+## Failure modes this rule prevents
+
+| Failure | How it happens | Step that stops it |
+|---|---|---|
+| Wrong repo | the feature exists in two wings | Step 1 |
+| Wrong ticket | a bare number, or a number claimed twice | Step 2 |
+| Wrong task | a roadmap line built as a spec | Step 3 |
+| Rebuilding finished work | a stale DONE claim read as pending | Step 4 |
+| Invisible spec | no ticket points at the spec | Step 3 + Step 5 |
+| Stale repo read as active | a finished repo never archived | The archive rule |
+
+<!-- END DOCUMENT-DISSECTION-RULE (Rule 73) -->
+
+---
+
+<!-- BEGIN FOUNDERS-ACTIONS-RULE (Rule 74) -->
+
+# MANDATED FOUNDER ACTIONS (Rule 74)
+
+> **Canonical copy.** This file is the single source for the rule below. It is
+> mirrored into every agents file in the ecosystem by
+> `qwkbrowser/scripts/apply-founders-actions-rule.cjs`. Edit IT here, then run
+> the script -- never edit a mirror by hand, or the copies drift.
+>
+> **Rule number:** 74 (wing-neutral). It carries no wing prefix on purpose: a
+> mirror of a global rule must not wear one wing's id. The highest global rule
+> number in use before this one was 73; `Rule 64` already means "AGENTS.md is
+> mirrored at docs/MASTER-AGENTS.md". Do not "tidy" this into `QWK-074`.
+
+---
+
+## 1. WHY THIS RULE EXISTS
+
+An agent can build almost anything in this ecosystem on its own. A short list of
+things it cannot build, cannot invent, and must never fake:
+
+- **credentials and keys** it does not hold,
+- **money** decisions (what to charge, what to switch on, live vs test),
+- **legal and consent** text,
+- **irreversible operations** (commits, pushes, deletions, archiving a repo),
+- **trust-boundary changes** (who is allowed to authenticate as whom),
+- **product priority** (which of two good things to do first),
+- **documents and files** only the founder knows the location of.
+
+The failure this rule prevents is specific and it has already happened here. Work
+that needs one of those things gets **quietly worked around**: a flag stays off
+and nobody is told why, a stub is written and shipped as if it were the feature,
+a placeholder balance is rendered as though it were real, or a whole item is
+"finished" in the sense that the part requiring a decision was skipped. The
+blocker then lives only in an agent's reasoning, which is the one place nobody
+reads later.
+
+The whole point of this rule is that **a blocker is a deliverable**. If it cannot
+be done, it must be written down where the founder will see it, in a form
+somebody can act on in ten seconds.
+
+---
+
+## 2. WHAT QUALIFIES AS A MANDATED FOUNDER ACTION
+
+A task item qualifies when it falls into one of these classes:
+
+| # | Class | Examples |
+|---|---|---|
+| 1 | Credentials and secrets | API keys, storage buckets, SMTP, OAuth client secrets, a shared secret that must match in two places |
+| 2 | Money | enabling a paid flow, live vs test keys, prices, refunds, payouts |
+| 3 | Legal, consent and claims | terms, privacy, disclosure wording, anything that promises money |
+| 4 | Irreversible operations | commit, push, delete, archive a repo, destroy a database, revoke a token |
+| 5 | Trust boundary | who authenticates as whom, what a partner may do with a session, where a credential may be stored |
+| 6 | Product priority | choosing between two valid builds when only one should happen first |
+| 7 | Knowledge only the founder holds | the location of a document, an account owner, a business intent |
+
+If an item is class **1-7**, it is a founder action. If it is none of them, it is
+ordinary work: do it, do not queue it.
+
+---
+
+## 3. THE OBLIGATION (this is the part that is mandatory)
+
+**Whoever first identifies a mandated founder action must acquire it.** The
+initiator owns it. There is no "someone will notice".
+
+The initiator must, in this order:
+
+1. **Record it in the queue** -- `qwkbrowser/docs/FOUNDERS-ACTIONS.md` -- in the
+   fixed item format: what is needed, why it cannot be done without the founder,
+   the options with a recommendation, what stays blocked meanwhile, and who asked
+   and when.
+2. **State the exact ask, not the symptom.** "Object storage credentials (R2
+   bucket + access key + secret)" is an ask. "Media upload is broken" is not.
+3. **Name the work it blocks**, so the cost of leaving it unanswered is visible.
+4. **Keep going on everything else.** A queued item blocks its own item and
+   nothing more. It is never a reason to stop the session.
+5. **Mark it resolved** when the founder answers: who, when, what was decided,
+   and the evidence. A denial is a resolution, not a failure.
+
+**Never** guess a credential, invent a number, flip a paid switch on
+speculatively, commit a change the founder has not approved, choose a
+trust-boundary model because it is easier, or ship a stub that renders as though
+the real thing were there. If the honest state is "this button cannot pay yet",
+the button must say so and the queue must say why.
+
+---
+
+## 4. WHAT THE FOUNDER MAY DO
+
+All three outcomes are valid and all three get recorded:
+
+- **GRANT** -- supply the thing (key, decision, approval).
+- **DENY** -- refuse, with or without a reason. The queue records the refusal and
+  the item is closed forever; it must not be re-asked every session.
+- **DEFER** -- not now. The item stays open with the new date or condition
+  attached, and it stays visible as still-open rather than disappearing.
+
+An unanswered item is **OPEN**, never assumed. Silence is not consent, and a
+missing answer never becomes a default.
+
+---
+
+## 5. THE QUEUE'S OWN RULES
+
+- **One queue, ecosystem-wide**, grouped by wing. Not one per repo: a per-repo
+  queue is how an item gets forgotten in the repo nobody opened this week.
+- **Numbered, stable ids** (`FA-01`, `FA-02`, ...). An id is never reused, even
+  after resolution.
+- **Honest status values only:** `OPEN`, `GRANTED`, `DENIED`, `DEFERRED`.
+  No "probably fine".
+- **The summary table comes first** so the whole ask is visible in one screen.
+- **It is a queue, not a spec.** Detail belongs in the owning doc; the queue
+  names the doc and section.
+- If the queue is empty, say so explicitly. An empty queue is a real and useful
+  state; a missing queue is not.
+
+---
+
+## 6. WHEN THIS RULE RUNS
+
+- As **step 4 of RTS/RTSG**, alongside the highlight: any mandated founder action
+  found during a pass goes into the queue in the same pass.
+- At the **start of any session** touching a queued item: read the queue first,
+  so a decided item is not re-litigated and an open one is not forgotten.
+- Before declaring any work **done**: if the honest completion depends on a class
+  1-7 item, the work is `BLOCKED ON FA-nn`, not done.
+
+---
+
+## 7. FAILURE MODES THIS RULE STOPS
+
+| Failure | What it looks like | Which part of this rule stops it |
+|---|---|---|
+| Silent workaround | A flag left off, no reason written anywhere | 3.1 record it, 3.4 keep going but visibly blocked |
+| Fake completion | A stub or placeholder presented as the feature | 3.never-guess clause; blocked work is labelled blocked |
+| Credential invention | A guessed key, a hardcoded value | Class 1 is a founder action, never an assumption |
+| Re-asking forever | The same question every session | 4 -- GRANTED/DENIED are recorded and closed |
+| Blocker lives in chat | "I could not do X" said once in a transcript | The queue is a file, not a message |
+| Stopping everything | The session halts on one open question | 3.4 -- queue it and continue |
+| Wrong repo, wrong task | A document pointing at another wing | Rule 73 (document dissection) runs first |
+
+---
+
+## END OF RULE 74
+
+> Queue: `qwkbrowser/docs/FOUNDERS-ACTIONS.md`
+> Mirror script: `qwkbrowser/scripts/apply-founders-actions-rule.cjs`
+> Related: Rule 73 (document dissection), Rule 64 (agents mirror), Rule 57
+> (machine-readable verify), Rule 16 (commit checkpoints).
+
+<!-- END FOUNDERS-ACTIONS-RULE (Rule 74) -->
+
+---
+
+# HIGHLIGHTS SECTION RULES (QWK-055)
+
+A highlight is what we saw: an edge, an opportunity, a pivot, observed
+from inside a repository. Produced by the agent working in the repo.
+
+- Comes from INSIDE the repo. No repo access, no highlight.
+- Intake origin (REG-057): modification_flow -- born when the initiator
+  is making modifications on an app / software platform. Recorded in
+  intake_origin.
+- One highlight per RTS/RTSG invocation, fixed 10-line format, naming
+  the working folder. No origin, no entry. (QWK-054 process unchanged.)
+- Title <= 7 words. Reference code = abbreviation + numeric suffix
+  (example: ASRNL-01). One global sequence per abbreviation, shared
+  across all four surfaces.
+- Category: Quanthom | Non-Quanthom. Section: main | alternative.
+- Lives in: docs/registry-highlights.md (rules),
+  AGENTIC-REGISTRY-HIGHLIGHTS.md (log, regenerated from the DB),
+  highlights table in registry.db, public/registry-highlights.html.
+- Flows: seeds more highlights, analyses, recommendations, or a
+  declaration. Every handoff recorded in the links ledger.
+- Full rules: docs/registry-highlights.md.
+
+---
+
+# DECLARATIONS SECTION RULES (QWK-055)
+
+A declaration is a statement served from OUTSIDE the registry platforms
+and repos. Anyone can serve one. The initiator serves the structure.
+
+- Declaration is the UMBRELLA TERM for its types: celebration, feedback,
+  advice, observation, launch, analysis, warning, question, prediction,
+  request, other.
+- Comes from OUTSIDE. No repo access required. Declarant token only.
+- Intake modes: paste, API/connector, clipper, feed, agent trigger.
+- Trigger phrase: "Here are few declarations. follow RTS or RTSG on
+  agents.md AND UPDATE the registry declarations/arguments" (variants ok).
+- Non-significant declarations go to the ALTERNATIVE section, not rejected.
+- Lives in: docs/registry-declarations.md (rules),
+  registry-declarations-log.md (log), declarations table in registry.db,
+  public/registry-declarations.html.
+- Flows: implies an argument; may require a diagnosis.
+- Full rules: docs/registry-declarations.md.
+
+---
+
+# ARGUMENTS SECTION RULES (QWK-055)
+
+An argument is before -> after: the improvement a declaration implies.
+Arguments sit in the MIDDLE of all surfaces (REG-057): they mediate
+declaration -> diagnosis and carry highlight -> diagnosis.
+
+- GENERATED, not observed. The Before comes from the declaration; the
+  After comes from the agent's expertise or the Registry repo.
+- Before and After each <= 7 words. Elaborate text in the DB body only.
+- Generation procedure: read the declaration, read the repo or apply
+  expertise, propose the After, post, record the implies-link, report.
+- Never fabricate repo state: if the repo was not read, source = expertise.
+- Lives in: docs/registry-arguments.md (rules),
+  registry-arguments-log.md (log), arguments table in registry.db,
+  public/registry-arguments.html.
+- Flows: requires a diagnosis (the task that implements it).
+- Full rules: docs/registry-arguments.md.
+
+---
+
+# DIAGNOSIS SECTION RULES (QWK-055)
+
+A diagnosis is an actionable task captured from inside a repository,
+before or after production. It answers: what to do, when, by whom, with
+what strategy, with what tool support, with what known solution.
+
+- Comes from INSIDE the repo. No repo access, no diagnosis. If the
+  agent cannot see the repo, it serves a declaration instead and lets
+  the flow produce an argument and a diagnosis from that.
+- Intake origins (REG-057): repo_button (a button triggers a diagnosis
+  task on the connected repo, full codebase or a certain area) |
+  modification_flow (born while the initiator modifies the app /
+  platform) | argument_processing (from processing declarations
+  submitted via arguments). Recorded in intake_origin.
+- Task <= 7 words. When stage: now | tomorrow | this_week | next_week |
+  pre_prod | post_prod | parked.
+- Contains: assigned_to, strategy, tool_support, solution_ref.
+- Not a Highlight (what we saw vs what to do). Not a Declaration
+  (inside vs outside). Not an Argument (before->after vs task->stage).
+- Lives in: docs/registry-diagnosis.md (rules),
+  registry-diagnosis-log.md (log, grouped by stage), diagnoses table in
+  registry.db, public/registry-diagnosis.html.
+- Flows: schedules, assigns, executes. Positive result.
+- Full rules: docs/registry-diagnosis.md.
+
+---
+
+# SOURCE MODEL (QWK-055, intake model REG-057)
+
+Every Registry entry has an origin. The origin determines who can
+produce it. The intake model (founder direction, 2026-09-20):
+
+- DECLARATIONS are pasted or extracted through any other means
+  (clipper, API, feed, agent trigger). They come from OUTSIDE the
+  repo. Anyone can serve one; no repo access required.
+- HIGHLIGHTS are born when the initiator is making modifications on
+  an app / software platform. They come from INSIDE the repo, during
+  work. No repo access, no highlight.
+- DIAGNOSIS arrives three ways:
+  1. a button that triggers a diagnosis task on the connected repo
+     (full codebase or a certain area) -- intake_origin: repo_button;
+  2. the same modification flow that births highlights --
+     intake_origin: modification_flow;
+  3. processing declarations submitted via arguments --
+     intake_origin: argument_processing.
+- ARGUMENTS sit in the MIDDLE of all of them: they mediate
+  declaration -> diagnosis, and carry highlight -> diagnosis. The
+  Before comes from the declaration or highlight; the After comes
+  from the agent's expertise or the Registry repo.
+- The agent never fabricates a Highlight or a Diagnosis.
+- The flow chain -- every handoff linked in the links ledger -- is the
+  product's selling point. Intake origin is recorded on every entry
+  (declarations: intake_mode; highlights + diagnoses: intake_origin).
+- Full conventions: docs/REGISTRY-CONVENTIONS.md.
+
+# REFERENCE SECTION (MANDATORY) -- QWK-098 / QWK-099
+
+This section is mandatory. It is mirrored to every wing's agents.md. No wing
+may remove it. When the founder says "follow RTS or RTSG on agents.md", the
+agent reads the documents below, applies them to the current task, and cites
+both documents in the task's output.
+
+Mandatory first paragraph (verbatim, per QWK-098 section 1):
+
+"UI & UX has to be sleek and uniquely modern which is the reason why I will
+place an expansive software and system design vocabularies md in all repos
+for citing. Please obey and be surgical. Consider all breakpoints at all
+time. Thank You."
+
+## Canonical reference documents
+
+1. docs/UI-SYSTEMS-DESIGN.md
+   The authority for every UI ticket in the ecosystem. Covers: vocabulary
+   (see the vocabulary file), design tokens, the two-column layout, the
+   rail, the overlay shapes, the breakpoints, the state machines, the
+   disciplines, the scenarios, the approaches, the fork points, the verify
+   plan, the mirror discipline.
+
+2. docs/SYSTEM-DESIGN-VOCABULARY.md
+   The vocabulary. One line per term. Plain list for grep-ability. The
+   Registry is the authority for new terms. No wing invents synonyms.
+
+## The rules
+
+R98.1 Every wing mirrors both documents into its own docs/ folder. The
+      mirror carries the header "> CANONICAL: quanthom-registry/docs/<file>".
+      No wing edits its mirror. Edits go to the Registry.
+R98.2 Every UI ticket cites both documents in its output.
+R98.3 This section is mandatory when CSS is more than 10% of the
+      implementation task.
+R98.4 Every value in UI code is a token. No hardcoded colour or spacing
+      values.
+R98.5 All breakpoints are considered at all times (xs through 3xl).
+R98.6 Verify with scripts/verify-v0-ui-systems.ps1 where the wing has
+      adopted the specification. Exit 0 on all pass.
+R98.7 QWK-099 (Quanthom Canvas) consumes these documents as the
+      machine-readable contract for the UI Systems Tool. The Registry is
+      the source. The wing (Canvas) is the surface.
+
+## END OF REFERENCE SECTION (MANDATORY)
+
+<!-- END QUANTHOM-REGISTRY-CANONICAL -->
+
