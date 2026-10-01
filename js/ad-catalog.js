@@ -137,6 +137,37 @@
       popup_bullets: ['Video creative', '15s / 30s click rate']
     },
     {
+      key: 'audio',
+      label: 'Audio Ad Placement',
+      group: 'placement',
+      group_label: 'Individual placements',
+      icon: 'AUDIO',
+      format: 'audio',
+      media_label: 'audio',
+      price_usd: 100,
+      price_display: '$100',
+      duration_display: null,
+      scope: '15s / 30s click rate',
+      unit_reward: 10,
+      cooldown_hours: 24,
+      targeting: 'Worldwide, country, audience or keyword',
+      button_label: 'Launch Audio',
+      state: STATES.DELAYED,
+      featured: false,
+      bullets: [
+        'Audio creative (15s max runtime)',
+        'Click-rate based -- 15s+ listen = half click, 30s+ = full click (skip/swipe)',
+        'Audio impression tracking',
+        'Engagement and click-through tracking',
+        'Worldwide, country, audience or keyword targeting',
+        'Custom audio and destination URL',
+        'Campaign performance analytics',
+        'Viewers listening 30s+ earn from 10 QU on a first listen, once per cooldown -- never QC credits',
+        'Advertiser billing: 15s+ listen = half a click (3 QC), 30s+ listen = a full click (6 QC)'
+      ],
+      popup_bullets: ['Audio creative', '15s / 30s click rate']
+    },
+    {
       key: 'network_banner',
       label: 'Banner on Publishers Network',
       group: 'placement',
@@ -200,8 +231,8 @@
       group: 'package',
       group_label: 'Campaign packages',
       icon: 'STAR',
-      format: 'image_or_video',
-      media_label: 'image or video',
+      format: 'image_audio_or_video',
+      media_label: 'image, audio or video',
       price_usd: 200,
       price_display: '$200',
       duration_display: null,
@@ -214,7 +245,9 @@
       featured: false,
       bullets: [
         'A broader campaign combining selected QWK Browser advertising placements',
-        'Image or video',
+        'Image, audio or video',
+        'Image = click-based (every click counts)',
+        'Audio & video = click-rate based -- 15s+ = half click, 30s+ = full click (skip/swipe)',
         'Up to 2,500 clicks',
         'Country or keyword targeting',
         '25 QU per click',
@@ -230,8 +263,8 @@
       group: 'package',
       group_label: 'Campaign packages',
       icon: 'STAR',
-      format: 'image_or_video',
-      media_label: 'image or video',
+      format: 'image_audio_or_video',
+      media_label: 'image, audio or video',
       price_usd: 450,
       price_display: '$450',
       duration_display: null,
@@ -244,7 +277,9 @@
       featured: true,
       bullets: [
         'A comprehensive campaign across QWK Browser and participating Publisher Network locations',
-        'Image or video',
+        'Image, audio or video',
+        'Image = click-based (every click counts)',
+        'Audio & video = click-rate based -- 15s+ = half click, 30s+ = full click (skip/swipe)',
         'Up to 6,000 clicks',
         'Full targeting options',
         '50 QU per click',
@@ -259,7 +294,7 @@
 
   // The billing key set the QWK launch endpoint accepts. Kept here so the
   // verify script can fail loudly the day the two drift apart.
-  var BILLING_KEYS = ['banner', 'video', 'launch', 'full_reach'];
+  var BILLING_KEYS = ['banner', 'video', 'audio', 'launch', 'full_reach'];
 
   // ------------------------------------------------------------------
   // LOOKUPS
