@@ -779,3 +779,224 @@ a:hover { text-decoration: underline; }
 @media (max-width: 768px) {
   .banq-pkg-grid-2 { grid-template-columns: 1fr; }
 }
+
+/* ==========================================================================
+   BANQ-021 -- PACKAGES PAGE CARD SYSTEM (design pass, 2026-10-01)
+   The catalog refactor moved the page render into js/ad-page.js but the
+   card styles (.banq-pkg-card, .banq-pkg-grid, prices, buttons, hero,
+   features) were never written -- the page rendered as unstyled HTML.
+   This block is the complete card system. Appended, nothing edited above.
+   ========================================================================== */
+
+/* -- Hero -- */
+.banq-ad-hero {
+  text-align: center;
+  padding: 48px 20px 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.banq-pkg-hero-title {
+  font-family: var(--font-d);
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.banq-pkg-hero-sub {
+  font-size: 13px;
+  color: var(--text2);
+  max-width: 620px;
+  margin: 12px auto 0;
+  line-height: 1.7;
+}
+
+/* -- Section framing -- */
+.banq-ad-section { margin-top: 40px; }
+.banq-ad-section-head {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.banq-ad-section-title {
+  font-family: var(--font-d);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+}
+.banq-ad-section-sub { font-size: 12px; color: var(--text2); }
+
+/* -- Grid -- */
+.banq-pkg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+/* -- Card -- */
+.banq-pkg-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 22px 20px 18px;
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+.banq-pkg-card:hover {
+  border-color: rgba(240,163,64,0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+}
+.banq-pkg-card.featured {
+  border-color: rgba(240,163,64,0.40);
+  background: linear-gradient(180deg, rgba(240,163,64,0.06), var(--card));
+}
+
+/* -- Badge -- */
+.banq-pkg-badge {
+  position: absolute;
+  top: -11px;
+  right: 16px;
+  font-family: var(--font-m);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0a0b10;
+  background: var(--accent);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* -- Card anatomy -- */
+.banq-pkg-icon {
+  display: inline-flex;
+  align-self: flex-start;
+  font-family: var(--font-m);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  background: rgba(240,163,64,0.10);
+  border: 1px solid rgba(240,163,64,0.25);
+  padding: 4px 9px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+.banq-pkg-name {
+  font-family: var(--font-d);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.banq-pkg-price {
+  font-family: var(--font-d);
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+.banq-pkg-period {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 6px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.banq-pkg-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex: 1;
+}
+.banq-pkg-features li {
+  font-size: 11.5px;
+  color: var(--text2);
+  line-height: 1.55;
+  padding-left: 16px;
+  position: relative;
+}
+.banq-pkg-features li::before {
+  content: '\2022';
+  position: absolute;
+  left: 2px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* -- Buttons -- */
+.banq-pkg-btn {
+  font-family: var(--font-d);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #0a0b10;
+  background: var(--accent);
+  border: none;
+  border-radius: 9px;
+  padding: 11px 16px;
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.1s ease;
+  width: 100%;
+}
+.banq-pkg-btn:hover { filter: brightness(1.08); }
+.banq-pkg-btn:active { transform: scale(0.98); }
+.banq-pkg-btn.secondary {
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border2);
+}
+.banq-pkg-btn.secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  filter: none;
+}
+
+/* -- QAP explainer -- */
+.banq-pkg-qap-section {
+  margin-top: 36px;
+  padding: 22px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.banq-pkg-qap-title {
+  font-family: var(--font-d);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text);
+}
+.banq-pkg-qap-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-top: 8px;
+  max-width: 760px;
+}
+.banq-pkg-qap-section a { color: var(--accent); text-decoration: none; }
+.banq-pkg-qap-section a:hover { text-decoration: underline; }
+
+/* -- Responsive -- */
+@media (max-width: 640px) {
+  .banq-pkg-grid { grid-template-columns: 1fr; }
+  .banq-ad-hero { padding-top: 32px; }
+}
+@media (max-width: 900px) {
+  .banq-pkg-grid-2 { grid-template-columns: 1fr; }
+}
+
+/* TBA price state: smaller, muted, clearly not a checkout price */
+.banq-pkg-price.tba {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--muted);
+  font-family: var(--font-d);
+  padding: 8px 0;
+}

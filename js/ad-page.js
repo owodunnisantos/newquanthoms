@@ -79,9 +79,8 @@
     return '' +
       '<div class="banq-pkg-card' + (entry.featured ? ' featured' : '') + '">' +
         badge +
-        '<div class="banq-pkg-icon">' + esc(entry.icon) + '</div>' +
         '<div class="banq-pkg-name">' + esc(entry.label) + '</div>' +
-        '<div class="banq-pkg-price">' + esc(entry.price_display) + '</div>' +
+        '<div class="banq-pkg-price' + (entry.price_usd == null ? ' tba' : '') + '">' + esc(entry.price_display) + '</div>' +
         '<div class="banq-pkg-period">' + esc(entry.scope) + '</div>' +
         bullets(entry.bullets, 'banq-pkg-features') +
         '<button class="' + btnClass + '" data-launch="' + esc(entry.key) + '">' + esc(entry.button_label) + '</button>' +
