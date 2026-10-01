@@ -132,9 +132,9 @@
 
     out += '<div class="banq-pkg-qap-section">' +
       '<div class="banq-pkg-qap-title">Your QAP identifies your advertising profile</div>' +
-      '<div class="banq-pkg-qap-desc">A QAP (Quanthom Advertising Profile) number is issued on QwkBrowser when you create an advertising profile on mybmf.html. When you launch a package you will be asked for it -- it tells us which creatives and targeting to use, and it is how BANQ monitoring links to your adverts.</div>' +
+      '<div class="banq-pkg-qap-desc">A QAP (Quanthom Advertising Profile) number is issued on QwkBrowser when you create an advertising profile on your Marketing Dashboard. When you launch a package you will be asked for it -- it tells us which creatives and targeting to use, and it is how BANQ monitoring links to your adverts.</div>' +
       '<div style="font-size:11px;color:var(--muted);margin-top:10px;font-family:var(--font-m)">' +
-        'Don\'t have a QAP number? <a href="https://localhost:3001/mybmf.html" target="_blank">Create an advertising profile on QwkBrowser</a>' +
+        'Don\'t have a QAP number? <a href="http://localhost:3001/marketing-dashboard.html" target="_blank">Create an advertising profile on your Marketing Dashboard</a>' +
       '</div>' +
     '</div>';
 
