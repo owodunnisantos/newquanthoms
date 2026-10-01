@@ -191,7 +191,7 @@
         'Impression and click tracking',
         'Country, audience or keyword targeting',
         'Custom banner creative and call-to-action',
-        'Publisher-level campaign analytics where available',
+        'Publisher-level analytics where available, via the $15/month BANQ AD SERVICE',
         'Up to 5,000 clicks'
       ],
       popup_bullets: ['Publisher Network reach', 'Up to 5,000 clicks']
@@ -221,7 +221,7 @@
         'Country, audience or keyword targeting',
         'Custom promotional videos',
         'Brand storytelling support',
-        'Network campaign analytics'
+        'Network campaign analytics via the $15/month BANQ AD SERVICE'
       ],
       popup_bullets: ['Publisher Network video', '15s / 30s click rate']
     },
@@ -253,7 +253,7 @@
         '25 QU per click',
         '48-hour click cooldown',
         'Priority placement',
-        'Campaign analytics'
+        'Monitoring and analytics via the $15/month BANQ AD SERVICE'
       ],
       popup_bullets: ['Up to 2,500 clicks', '25 QU per click']
     },
@@ -285,8 +285,7 @@
         '50 QU per click',
         '72-hour click cooldown',
         'Top placement',
-        'Dedicated BANQ manager',
-        'Campaign analytics and monitoring'
+        'Monitoring, analytics and a dedicated BANQ manager via the $15/month BANQ AD SERVICE'
       ],
       popup_bullets: ['Up to 6,000 clicks', '50 QU per click']
     }
