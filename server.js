@@ -1,4 +1,4 @@
-/*
+﻿/*
  * New Quanthoms Billboard Agency (BANQ)
  * www.newquanthoms.com -- Server
  *
@@ -19,6 +19,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const { init } = require('./backend/db');
 const { router: authRouter } = require('./backend/auth');
 const { router: banqRouter } = require('./backend/banq');
+const { partnerStatsHandler } = require('./backend/banq');
 const { router: billboardRouter } = require('./backend/billboards');
 const { router: intelligenceRouter } = require('./backend/banq-intelligence');
 const { router: earnRouter } = require('./backend/earn');
@@ -69,7 +70,14 @@ const QWK_API_URL = process.env.QWK_API_URL || 'http://localhost:3001';
 app.use(createProxyMiddleware({
   target: QWK_API_URL,
   changeOrigin: true,
-  pathFilter: ['/api/ads', '/api/profile', '/api/ad-profile'],
+  // stats is EXCLUDED on purpose: it is BANQ-local (see backend/banq.js
+  // partnerStatsHandler) because proxying it forwarded the browser's BANQ
+  // token into a QWK requireAuth route -- 401 -- and the client read that
+  // 401 as "BANQ session dead" and signed the user out.
+  pathFilter: function (path) {
+    return (path.indexOf('/api/ads/admin/stats') === 0) ? false
+      : (path.indexOf('/api/ads') === 0 || path.indexOf('/api/profile') === 0 || path.indexOf('/api/ad-profile') === 0);
+  },
   on: {
     error: function (err, req, res) {
       console.error('[BANQ] Proxy to QwkBrowser failed for ' + req.url + ': ' + err.message);
@@ -82,6 +90,10 @@ app.use(createProxyMiddleware({
     }
   }
 }));
+
+// -- BANQ-local partner stats (registered after the proxy: its pathFilter
+// excludes /api/ads/admin/stats, so the proxy never swallows this) --
+app.get('/api/ads/admin/stats', partnerStatsHandler);
 
 // -- Body parser (AFTER the proxy -- see the note above) --
 app.use(express.json());
@@ -110,6 +122,8 @@ app.use('/api/billboards', billboardRouter);
  * qwk_csrf cookie -- which is exactly why the old "Click to Earn" button
  * could never pay. Mounted at /api/earn, local and never proxied. */
 app.use('/api/earn', earnRouter);
+// QWK-069-G: cross-ecosystem Stagehand verifications (BANQ_STAGEHAND=1 gate)
+app.use('/api/stagehand', require('./backend/stagehand-ecosystem'));
 
 /* -- Unknown /api/* is 404 JSON, never the homepage --
  *

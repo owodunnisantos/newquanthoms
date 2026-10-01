@@ -16,6 +16,7 @@
 const express = require('express');
 const router = express.Router();
 const { db } = require('./db');
+const loadEnv = require('./load-env');
 
 const RATE_WINDOW_MS = 30 * 1000;      // one message per 30s per IP
 const WEBHOOK_TIMEOUT_MS = 5000;
@@ -33,6 +34,63 @@ function requireAdmin(req, res, next) {
     next();
   });
 }
+
+/* ------------------------------------------------------------------
+ * GET /api/ads/admin/stats -- BANQ-local partner dashboard stats
+ *
+ * WHY THIS IS NOT PROXIED: /api/ads/* used to go through the QWK proxy,
+ * which forwarded the BANQ browser token to QwkBrowser. QWK requireAuth
+ * answered 401 (a BANQ token is not a QWK token), and the client's
+ * fetchJson treats 401 as "BANQ session over" -- it wiped banq_token and
+ * bounced the user to login. From the outside: click DASHBOARD, get signed
+ * out. The fix is the same one app.js documents for banner clicks: the
+ * BANQ session stays, and the QWK call happens server-to-server with the
+ * shared SSO secret -- never with the browser's BANQ token.
+ *
+ * The user's qwk_user_id was mirrored at sign-in (qwk-identity.js), so we
+ * know which QWK account's stats to fetch.
+ * ------------------------------------------------------------------ */
+async function partnerStatsHandler(req, res) {
+  try {
+    const { requireAuth } = require('./auth');
+    requireAuth(req, res, async function () {
+      const qwkUserId = req.user && req.user.qwk_user_id;
+      if (!qwkUserId) {
+        // Signed in with a BANQ-local account that has no QwkBrowser mirror.
+        // Same answer QWK would give, but delivered without touching the
+        // session: the dashboard renders its "sign up as a partner" state.
+        return res.status(403).json({ error: 'not_ad_partner' });
+      }
+      const env = loadEnv.load();
+      const secret = process.env.BANQ_SSO_SECRET || '';
+      const base = process.env.QWK_API_URL || (env && env.QWK_API_URL) || 'http://localhost:3001';
+      const url = base + '/api/ads/admin/stats-by-qwk-user?qwk_user_id=' + encodeURIComponent(qwkUserId);
+      const ctrl = new AbortController();
+      const timer = setTimeout(function () { ctrl.abort(); }, 8000);
+      let upstream;
+      try {
+        upstream = await fetch(url, {
+          headers: { 'x-qwk-sso-secret': secret },
+          signal: ctrl.signal
+        });
+      } finally {
+        clearTimeout(timer);
+      }
+      const data = await upstream.json().catch(function () { return {}; });
+      if (!upstream.ok) {
+        return res.status(upstream.status).json({
+          error: data.error || 'qwk_stats_failed',
+          message: data.message || 'QwkBrowser did not return partner stats.'
+        });
+      }
+      res.json(data);
+    });
+  } catch (err) {
+    console.error('[BANQ] /api/ads/admin/stats failed:', err.message);
+    res.status(500).json({ error: 'server_error' });
+  }
+}
+router.get('/ads/admin/stats', partnerStatsHandler);
 
 function clientIp(req) {
   const fwd = req.headers['x-forwarded-for'];
@@ -265,4 +323,4 @@ router.post('/contact/notifications/retry', requireAdmin, async function (req, r
   }
 });
 
-module.exports = { router, requireAdmin };
+module.exports = { router, requireAdmin, partnerStatsHandler };
